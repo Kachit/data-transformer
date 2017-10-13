@@ -31,6 +31,12 @@ abstract class TransformerAbstract extends FractalTransformerAbstract
     }
 
     /**
+     * @param mixed $entity
+     * @return array
+     */
+    abstract public function transform($entity): array;
+
+    /**
      * @return bool
      */
     public function isCollectionMode(): bool
