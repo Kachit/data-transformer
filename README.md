@@ -1,2 +1,2 @@
-# data-transformer
-Simple data transformer powered by Fractal
+# Data transformer library
+Simple data transformer library powered by Fractal
