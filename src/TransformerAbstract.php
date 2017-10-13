@@ -22,16 +22,24 @@ abstract class TransformerAbstract extends FractalTransformerAbstract
     protected $builder;
 
     /**
-     * TransformerAbstract constructor.
-     * @param BuilderInterface $builder
+     * @var ReplacerInterface
      */
-    public function __construct(BuilderInterface $builder)
+    protected $replacer;
+
+    /**
+     * TransformerAbstract constructor
+     *
+     * @param BuilderInterface $builder
+     * @param ReplacerInterface $replacer
+     */
+    public function __construct(BuilderInterface $builder, ReplacerInterface $replacer)
     {
         $this->builder = $builder;
+        $this->replacer = $replacer;
     }
 
     /**
-     * @param mixed $entity
+     * @param array|object $entity
      * @return array
      */
     abstract public function transform($entity): array;
