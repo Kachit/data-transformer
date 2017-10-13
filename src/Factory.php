@@ -58,7 +58,7 @@ class Factory
      * @param string $transformerClass
      * @return Fractal
      */
-    public function getCollectionTransformer($collection, string $transformerClass): Fractal
+    public function collection($collection, string $transformerClass): Fractal
     {
         $transformer = $this->builder->buildTransformer($transformerClass);
         return $this->getFractal()->collection($collection, $transformer->setCollectionMode(true));
