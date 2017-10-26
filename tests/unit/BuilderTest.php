@@ -1,5 +1,7 @@
 <?php
 use Kachit\DataTransformer\Builder;
+use Kachit\DataTransformer\Stub\StubArrayTransformer;
+use Kachit\DataTransformer\Stub\StubObjectTransformer;
 
 class BuilderTest extends \Codeception\Test\Unit
 {
@@ -9,22 +11,37 @@ class BuilderTest extends \Codeception\Test\Unit
     protected $tester;
 
     /**
-     * @var
+     * @var Builder
      */
     protected $builder;
 
+    /**
+     *
+     */
     protected function _before()
     {
         $this->builder = new Builder();
     }
 
-    protected function _after()
+    /**
+     *
+     */
+    public function testBuildStubArrayTransformer()
     {
+        $result = $this->builder->buildTransformer(StubArrayTransformer::class);
+        $this->assertTrue(is_object($result));
+        $this->assertInstanceOf(StubArrayTransformer::class, $result);
+        $this->assertEquals($result, $this->builder->buildTransformer(StubArrayTransformer::class));
     }
 
-    // tests
-    public function testSomeFeature()
+    /**
+     *
+     */
+    public function testBuildStubObjectTransformer()
     {
-
+        $result = $this->builder->buildTransformer(StubObjectTransformer::class);
+        $this->assertTrue(is_object($result));
+        $this->assertInstanceOf(StubObjectTransformer::class, $result);
+        $this->assertEquals($result, $this->builder->buildTransformer(StubObjectTransformer::class));
     }
 }

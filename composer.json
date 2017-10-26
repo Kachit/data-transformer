@@ -11,7 +11,10 @@
         }
     ],
     "autoload": {
-        "psr-4": { "Kachit\\DataTransformer\\": "src/" }
+        "psr-4": {
+            "Kachit\\DataTransformer\\": "src/",
+            "Kachit\\DataTransformer\\Stub\\": "tests/_support/stubs/"
+        }
     },
     "require": {
         "php": "~7.0",
