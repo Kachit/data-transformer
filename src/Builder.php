@@ -7,6 +7,8 @@
  */
 namespace Kachit\DataTransformer;
 
+use Kachit\DataTransformer\Replacer\Factory as ReplacersFactory;
+
 class Builder implements BuilderInterface
 {
     /**
@@ -15,18 +17,18 @@ class Builder implements BuilderInterface
     protected $transformers = [];
 
     /**
-     * @var ReplacerInterface
+     * @var ReplacersFactory
      */
-    protected $replacer;
+    protected $replacers;
 
     /**
      * Builder constructor.
      *
-     * @param ReplacerInterface $replacer
+     * @param ReplacersFactory $replacers
      */
-    public function __construct(ReplacerInterface $replacer = null)
+    public function __construct(ReplacersFactory $replacers = null)
     {
-        $this->replacer = $replacer ?? new Replacer();
+        $this->replacers = $replacers ?? new ReplacersFactory();
     }
 
     /**
@@ -47,6 +49,6 @@ class Builder implements BuilderInterface
      */
     protected function createTransformerClass(string $className): TransformerAbstract
     {
-        return new $className($this, $this->replacer);
+        return new $className($this, $this->replacers);
     }
 }

@@ -8,6 +8,7 @@
 namespace Kachit\DataTransformer;
 
 use League\Fractal\TransformerAbstract as FractalTransformerAbstract;
+use Kachit\DataTransformer\Replacer\Factory as ReplacersFactory;
 
 abstract class TransformerAbstract extends FractalTransformerAbstract
 {
@@ -22,20 +23,20 @@ abstract class TransformerAbstract extends FractalTransformerAbstract
     protected $builder;
 
     /**
-     * @var ReplacerInterface
+     * @var ReplacersFactory
      */
-    protected $replacer;
+    protected $replacers;
 
     /**
      * TransformerAbstract constructor
      *
      * @param BuilderInterface $builder
-     * @param ReplacerInterface $replacer
+     * @param ReplacersFactory $replacers
      */
-    public function __construct(BuilderInterface $builder, ReplacerInterface $replacer)
+    public function __construct(BuilderInterface $builder, ReplacersFactory $replacers)
     {
         $this->builder = $builder;
-        $this->replacer = $replacer;
+        $this->replacers = $replacers;
     }
 
     /**

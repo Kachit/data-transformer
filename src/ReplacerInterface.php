@@ -16,13 +16,7 @@ interface ReplacerInterface
     public function replace(string $text): string;
 
     /**
-     * @return array
+     * @return string
      */
-    public function getMap(): array;
-
-    /**
-     * @param array $map
-     * @return ReplacerInterface
-     */
-    public function setMap(array $map = []): ReplacerInterface;
+    public function getName(): string;
 }

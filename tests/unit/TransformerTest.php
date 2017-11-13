@@ -1,9 +1,13 @@
 <?php
 use Kachit\DataTransformer\Builder;
 use Kachit\DataTransformer\Stub\StubArrayTransformer;
+use Kachit\DataTransformer\Stub\StubArrayReplaceTransformer;
 use Kachit\DataTransformer\Stub\StubObjectTransformer;
 use Kachit\DataTransformer\Stub\StubCollectionTransformer;
 use Kachit\DataTransformer\Stub\Entity as StubEntity;
+use Kachit\DataTransformer\Replacer\Factory;
+use Kachit\DataTransformer\Replacer\Text;
+use Kachit\DataTransformer\Replacer\Path;
 
 class TransformerTest extends \Codeception\Test\Unit
 {
@@ -22,7 +26,8 @@ class TransformerTest extends \Codeception\Test\Unit
      */
     protected function _before()
     {
-        $this->builder = new Builder();
+        $factory = (new Factory())->add(new Path('http://cdn.myhost.loc/'));
+        $this->builder = new Builder($factory);
     }
 
     // tests
@@ -53,5 +58,15 @@ class TransformerTest extends \Codeception\Test\Unit
         $this->assertNotEmpty($result);
         $this->assertTrue(is_array($result));
         $this->assertEquals(['id' => 10, 'name' => 'foo'], $result);
+    }
+
+    // tests
+    public function testTransformArrayWithReplace()
+    {
+        $transformer = $this->builder->buildTransformer(StubArrayReplaceTransformer::class);
+        $result = $transformer->transform(['id' => '10', 'name' => 'foo', 'path' => '/foo/bar.jpg']);
+        $this->assertNotEmpty($result);
+        $this->assertTrue(is_array($result));
+        $this->assertEquals(['id' => 10, 'name' => 'foo', 'path' => 'http://cdn.myhost.loc/foo/bar.jpg'], $result);
     }
 }
